@@ -1,0 +1,6 @@
+{
+  "name": "ARX-PacketGuard: Secure Chat & Network Traffic Inspector",
+  "description": "Educational Information Security demonstration combining end-to-end ratcheted messaging (X25519, ML-KEM-768 hybrid, HKDF-SHA-256, AES-256-GCM) with independent network packet metadata inspection and heuristic anomaly detection.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
