@@ -36,8 +36,9 @@ import {
   ExperimentsAndDocsView,
   type ExperimentLogItem,
 } from './components/ExperimentsAndDocsView.tsx';
+import { VisualFlowSimulatorView } from './components/VisualFlowSimulatorView.tsx';
 
-type ActiveTab = 'overview' | 'chat' | 'relay' | 'packets' | 'experiments';
+type ActiveTab = 'overview' | 'flow' | 'chat' | 'relay' | 'packets' | 'experiments';
 type WorkspaceRoleView = 'dual' | 'alice' | 'bob';
 
 export interface EndpointChatMessage {
@@ -889,6 +890,7 @@ export default function App() {
               { id: 'relay', label: 'Relay Inspector' },
               { id: 'packets', label: 'Packet Dashboard' },
               { id: 'experiments', label: 'Experiments & Docs' },
+              { id: 'flow', label: 'Visual Flow' },
             ] as const
           ).map((item) => (
             <a
@@ -1055,6 +1057,13 @@ export default function App() {
 
                 {/* Quick Classroom Jump Actions */}
                 <div className="flex flex-wrap items-center gap-2 shrink-0">
+                  <button
+                    type="button"
+                    onClick={() => setActiveTab('flow')}
+                    className="px-3 py-2 text-xs font-medium bg-emerald-700 text-white rounded-md hover:bg-emerald-800 transition-colors whitespace-nowrap shrink-0"
+                  >
+                    Open Animated Packet Flow
+                  </button>
                   <button
                     type="button"
                     onClick={handleExpNormalMessage}
@@ -1874,6 +1883,20 @@ export default function App() {
             onChangePerspective={setTrafficPerspective}
             onLoadScenario={handleLoadScenario}
             onUpdateRules={handleUpdateRules}
+          />
+        )}
+
+        {/* ===================================================================== */}
+        {/* VIEW 1B: INTERACTIVE VISUAL CRYPTO & PACKET FLOW SIMULATOR            */}
+        {/* ===================================================================== */}
+        {activeTab === 'flow' && (
+          <VisualFlowSimulatorView
+            activeEncryptionMode={encryptionMode}
+            epochSize={epochSize}
+            onTriggerLiveNormal={handleExpNormalMessage}
+            onTriggerLiveTamperCipher={handleExpTamperCiphertext}
+            onTriggerLiveTamperHeader={handleExpModifyHeader}
+            onTriggerLiveReplay={handleExpReplayLast}
           />
         )}
 
